@@ -9,7 +9,7 @@ everything runs on the same data, the same split and the same scorecard.
 
 ```
 sp500-forecasting/
-├── data/            the S&P 500 file everyone uses (already downloaded, do not re-download)
+├── data/            the S&P 500 file everyone uses: full history from 1927 (already downloaded, do not re-download)
 ├── notebooks/       part 1 (data check), part 2 (time series analysis), part 3 (baseline and evaluation)
 ├── models/          arima.ipynb, rnn.ipynb, lstm.ipynb  (one per person)
 ├── src/             config.py (the shared settings) and common.py (shared helper functions)
@@ -34,10 +34,13 @@ Order of work: parts 1 and 2 first (part 2 confirms the split dates), then the t
 
 ## Three rules, in plain words
 
-1. **One data file.** Everyone reads `data/sp500_daily.csv`. It is already in the repository with a
-   record of where it came from (`data/sp500_daily.meta.json`). Nobody downloads it again.
-2. **One split.** The dates that separate training, validation and test live in `src/config.py`.
-   Part 2 confirms them; every notebook imports them. Time order only, never shuffled.
+1. **One data file.** Everyone reads `data/sp500_daily.csv`, the full history from 1927, already in the
+   repository with a record of where it came from (`data/sp500_daily.meta.json`). Nobody downloads it again.
+   The years the models train on are a setting (`TRAIN_START` in `src/config.py`), chosen by Part 2 with
+   evidence (notebook 02, section 0), because the professor asked for a justified period, not a preference.
+2. **One split.** The dates that separate training, validation and test live in `src/config.py`:
+   test = the last 12 months of the file, validation = the 12 months before. Every notebook imports them.
+   Time order only, never shuffled.
    Tune your model on validation; run it on test exactly once, at the end.
 3. **One scorecard.** The models work on the daily return, but every forecast is turned back into a
    closing value in index points by `common.save_predictions(...)` before it is scored, because the
@@ -48,7 +51,7 @@ Order of work: parts 1 and 2 first (part 2 confirms the split dates), then the t
 
 | Brief section | Where |
 |---|---|
-| 1 Data: source record, period, order, duplicates, closures vs missing, outliers | notebook 01, `data/sp500_daily.meta.json` |
+| 1 Data: source record, period, order, duplicates, closures vs missing, outliers | notebook 01, `data/sp500_daily.meta.json`; period justification: notebook 02 section 0 |
 | 2 Analysis on training data: trend, seasonality, ADF/KPSS, ACF/PACF, random walk definition | notebook 02 |
 | 3 Design: next-day close, conversion from returns, chronological split, rolling forecasts | `src/config.py`, `src/common.py`, each model notebook |
 | 4 Methods: mechanism, equations, p/d/q justification, gates, configuration tables | each model notebook |

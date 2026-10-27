@@ -4,9 +4,9 @@
   "series_identifier": "^GSPC",
   "series_name": "S&P 500 index, daily, closing value (auto-adjusted)",
   "access_date": "2026-10-27",
-  "period_requested_from": "2010-01-01",
-  "first_date": "2010-01-04",
-  "last_date": "2026-10-26",
-  "sample_size": 4229,
+  "period_requested_from": "full history (period=max)",
+  "first_date": "1927-12-30",
+  "last_date": "2026-10-27",
+  "sample_size": 24823,
   "yfinance_version": "0.2.66"
 }

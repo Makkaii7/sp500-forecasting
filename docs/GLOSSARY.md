@@ -24,6 +24,13 @@ If the index is a random walk, the baseline is the best possible forecast.
 
 **RMSE.** Root mean squared error: like MAE but big mistakes count extra. Also in index points.
 
+**Volatility.** The usual size of a daily move: the standard deviation of the daily return. High
+volatility = big swings. It changes over time, which is why we look at it decade by decade.
+
+**Regime and structural break.** A regime is a stretch of time where the series behaves in one way
+(for example, big daily swings). A structural break is a date where the behaviour changes. If old years
+belong to a different regime, training on them teaches the model the wrong world.
+
 **Stationary.** A series that wobbles around a fixed level with a steady spread. The price is not;
 the daily return roughly is. ARIMA and the neural networks want a stationary input.
 

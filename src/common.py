@@ -33,10 +33,13 @@ def target_series(df: pd.DataFrame) -> pd.Series:
 
 
 def split(series: pd.Series):
-    """Train / validation / test in time order, using the dates in config."""
-    train = series.loc[: config.TRAIN_END]
-    val = series.loc[config.TRAIN_END:config.VAL_END].iloc[1:]   # exclude the boundary day already in train
-    test = series.loc[config.VAL_END:].iloc[1:]
+    """Train / validation / test in time order, using the dates in config.
+    Boundary dates may fall on a weekend: train ends on the last trading day <= TRAIN_END, validation is
+    everything after TRAIN_END up to and including VAL_END, test is everything after VAL_END."""
+    idx = series.index
+    train = series[(idx >= pd.Timestamp(config.TRAIN_START)) & (idx <= pd.Timestamp(config.TRAIN_END))]
+    val = series[(idx > pd.Timestamp(config.TRAIN_END)) & (idx <= pd.Timestamp(config.VAL_END))]
+    test = series[idx > pd.Timestamp(config.VAL_END)]
     return train, val, test
 
 

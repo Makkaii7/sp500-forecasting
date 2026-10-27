@@ -10,12 +10,12 @@ from pathlib import Path
 import pandas as pd
 import yfinance as yf
 
-START = "2010-01-01"   # the chosen period: change only by group decision, then commit the new CSV and meta file
+START = None           # None = the full history Yahoo has (from 1927). The period the models TRAIN on is chosen in src/config.py, not here.
 TICKER = "^GSPC"       # S&P 500 index on Yahoo Finance
 
 here = Path(__file__).resolve().parent
 out = here / "sp500_daily.csv"
-data = yf.download(TICKER, start=START, auto_adjust=True, progress=False)
+data = yf.download(TICKER, start=START, period=None if START else "max", auto_adjust=True, progress=False)
 if isinstance(data.columns, pd.MultiIndex):          # newer yfinance returns two-level columns
     data.columns = data.columns.get_level_values(0)
 data = data[["Open", "High", "Low", "Close", "Volume"]]
@@ -28,7 +28,7 @@ meta = {
     "series_identifier": TICKER,
     "series_name": "S&P 500 index, daily, closing value (auto-adjusted)",
     "access_date": date.today().isoformat(),
-    "period_requested_from": START,
+    "period_requested_from": START or "full history (period=max)",
     "first_date": str(data.index.min().date()),
     "last_date": str(data.index.max().date()),
     "sample_size": int(len(data)),
