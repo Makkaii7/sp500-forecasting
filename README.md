@@ -1,8 +1,23 @@
 # S&P 500 forecasting: ARIMA, RNN and LSTM against a random-walk baseline
 
-COSC 621 research report (the brief: "Time Series Forecasting Research Project", weight 20%).
-One shared repository so that all three models and all three analysis parts run on the same data,
-the same chronological split, the same one-day horizon and the same scorecard in index points.
+COSC 621 research report. Three models, three analysis parts, one shared repository, so that
+everything runs on the same data, the same split and the same scorecard.
+
+**New here? Read [docs/START_HERE.md](docs/START_HERE.md) first.** It is a 10-minute guide with
+numbered steps for Colab and for Cursor/VS Code, no git knowledge needed.
+
+## The map
+
+```
+sp500-forecasting/
+├── data/            the S&P 500 file everyone uses (already downloaded, do not re-download)
+├── notebooks/       part 1 (data check), part 2 (time series analysis), part 3 (baseline and evaluation)
+├── models/          arima.ipynb, rnn.ipynb, lstm.ipynb  (one per person)
+├── src/             config.py (the shared settings) and common.py (shared helper functions)
+├── results/         every model saves its test predictions here; part 3 reads them
+├── report/          the LaTeX report skeleton with the sections the professor asked for
+└── docs/            START_HERE, GLOSSARY, TROUBLESHOOTING
+```
 
 ## Who does what
 
@@ -16,19 +31,19 @@ the same chronological split, the same one-day horizon and the same scorecard in
 | LSTM | | `models/lstm.ipynb` |
 | Report (LaTeX) | everyone, own sections | `report/main.tex` |
 
-## Three rules that make the comparison fair
+Order of work: parts 1 and 2 first (part 2 confirms the split dates), then the three models, then part 3.
 
-1. **One data file.** Everyone reads `data/sp500_daily.csv`. It is downloaded once with
-   `python data/download_sp500.py`, which also writes `data/sp500_daily.meta.json` (source URL,
-   series identifier, access date, period, sample size). Both files are committed. Nobody re-downloads.
-2. **One split.** Train, validation and test dates live in `src/config.py`. Part 2 sets them;
-   every model imports them. Chronological, no shuffling. Models are tuned on validation only and
-   touch the test set once.
-3. **One scorecard, in index points.** The models may work on daily log returns (`config.TARGET`), but
-   every forecast is converted back to a closing value with `common.to_price` before it is scored.
-   `common.save_predictions` writes each model's test predictions and a small JSON with its settings and
-   training time to `results/`; part 3's `common.scorecard()` reads them all and compares them with the
-   last-observed-value baseline on identical test dates.
+## Three rules, in plain words
+
+1. **One data file.** Everyone reads `data/sp500_daily.csv`. It is already in the repository with a
+   record of where it came from (`data/sp500_daily.meta.json`). Nobody downloads it again.
+2. **One split.** The dates that separate training, validation and test live in `src/config.py`.
+   Part 2 confirms them; every notebook imports them. Time order only, never shuffled.
+   Tune your model on validation; run it on test exactly once, at the end.
+3. **One scorecard.** The models work on the daily return, but every forecast is turned back into a
+   closing value in index points by `common.save_predictions(...)` before it is scored, because the
+   professor wants MAE and RMSE in index points against the "tomorrow equals today" baseline.
+   You never compute this yourself; you call the helper and it does it.
 
 ## What the brief asks for, and where it lives
 
@@ -37,38 +52,17 @@ the same chronological split, the same one-day horizon and the same scorecard in
 | 1 Data: source record, period, order, duplicates, closures vs missing, outliers | notebook 01, `data/sp500_daily.meta.json` |
 | 2 Analysis on training data: trend, seasonality, ADF/KPSS, ACF/PACF, random walk definition | notebook 02 |
 | 3 Design: next-day close, conversion from returns, chronological split, rolling forecasts | `src/config.py`, `src/common.py`, each model notebook |
-| 4 Methods: mechanism, equations, p/d/q justification, gates, configuration tables | each model notebook, section "configurations" |
+| 4 Methods: mechanism, equations, p/d/q justification, gates, configuration tables | each model notebook |
 | 5 Evaluation: baseline, MAE and RMSE in index points, plots, residuals, cost, meaningfulness | notebook 03 |
 | 6 Report structure | `report/main.tex` |
 | 7 Submission: zip with PDF, runnable code, README with versions, seeds, data access | this README, `requirements-lock.txt`, `src/config.py` (seed) |
 
-## Working in Colab or in Cursor
+## Reproducibility (for the submission)
 
-Both edit the same `.ipynb` files.
-
-- **Colab:** File > Open notebook > GitHub tab, paste this repository's URL (tick "Include private
-  repos" and authorize once). Save back with File > Save a copy in GitHub.
-- **Cursor / VS Code:** clone, create a virtual environment, `pip install -r requirements.txt`, open the notebook.
-
-The first code cell of every notebook finds the repository root (and clones it in Colab), so the same
-notebook runs in both.
-
-## Setup (local)
-
-```bash
-python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-python data/download_sp500.py    # only once, then commit data/sp500_daily.csv and data/sp500_daily.meta.json
-pip freeze > requirements-lock.txt   # exact package versions for the submission README
-```
-
-## Reproducibility
-
-- Random seed: `config.RANDOM_SEED` (used by Keras in every model notebook).
-- Package versions: `requirements-lock.txt` (generate it with the command above before submitting).
+- Random seed: `config.RANDOM_SEED`, used by every model notebook.
+- Package versions: `requirements-lock.txt` (made with `pip freeze > requirements-lock.txt` before submitting).
 - Data access: `data/download_sp500.py` and `data/sp500_daily.meta.json`.
-- Order to run: 01, 02 (sets the split dates), then the three model notebooks, then 03.
+- Order to run: 01, 02, then arima / rnn / lstm, then 03.
 
 ## Submission checklist (brief, section 7)
 
