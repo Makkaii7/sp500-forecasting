@@ -1,0 +1,58 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage[numbers]{natbib}
+
+\title{Forecasting the S\&P 500 One Day Ahead:\\ARIMA, a Vanilla RNN and an LSTM Against a Random-Walk Baseline}
+\author{Name 1 (ID) \and Name 2 (ID) \and Name 3 (ID)}
+\date{COSC 621, Data Science and Generative AI \\ \today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+One paragraph: the question (can ARIMA, a vanilla RNN and an LSTM forecast the next day's S\&P 500
+close better than a random walk?), the data (source, period, sample size), the design (chronological
+split, rolling one-day forecasts, errors in index points), the headline result and its interpretation.
+\end{abstract}
+
+\section{Introduction}
+Why forecasting an index is hard, what a random walk implies for forecasting, what this report tests
+and how the rest is organised.
+
+\section{Data and analysis}
+\subsection{Data collection and preparation}
+Source, series identifier, access date, period and its justification, sample size, checks for order,
+duplicates, missing observations, market closures versus missing data, outliers, transformations.
+\subsection{Time series analysis}
+Trend, seasonality (how detected, evidence found or absent), stationarity (ADF and KPSS with their
+hypotheses and limitations), ACF and PACF, the random walk defined formally with its innovation
+assumptions, and whether the evidence is consistent with it.
+
+\section{Methodology}
+\subsection{Forecasting design}
+Target (next-day close; conversion from log returns), split dates and their justification, rolling
+forecast and refitting procedure, preprocessing fitted on training data only.
+\subsection{Random-walk baseline}
+\subsection{ARIMA}
+Mechanism and equations; p, d, q justified by stationarity checks, ACF/PACF, information criteria and
+validation; residual inspection.
+\subsection{Vanilla RNN}
+Recurrence and memory; lookback window, inputs, layers, hidden units, loss, optimizer, learning rate,
+batch size, epochs, overfitting controls; configuration table.
+\subsection{LSTM}
+Gates (forget, input, output) and why they help; same justification and configuration table.
+
+\section{Results and discussion}
+Error comparison table (MAE and RMSE in index points, identical test dates), actual-versus-predicted
+plots, residual patterns, overfitting, computational cost, whether any improvement is meaningful,
+limitations.
+
+\section{Conclusion}
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+\end{document}

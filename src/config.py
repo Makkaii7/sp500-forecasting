@@ -6,9 +6,12 @@ Everyone else imports them. Change them here only, by group decision.
 
 DATA_FILE = "data/sp500_daily.csv"
 
-# What the models forecast, one day ahead.
-# "log_return": log(close_t / close_{t-1})   <- recommended (stationary, honest)
-# "close":      the price level                <- only as a comparison, see README
+# What the models work on internally, one day ahead.
+# "log_return": log(close_t / close_{t-1})   <- recommended: stationary, so the models have something to learn
+# "close":      the price level
+# Whatever the models work on, EVERY forecast is converted back to a closing value in index points
+# before it is scored (common.to_price), because the brief asks for MAE and RMSE in index points
+# against a last-observed-value baseline on identical test dates.
 TARGET = "log_return"
 
 # Split in time order. Train: up to and including TRAIN_END.
@@ -16,7 +19,7 @@ TARGET = "log_return"
 TRAIN_END = "2022-12-31"   # placeholder, to be confirmed by part 2
 VAL_END = "2023-12-31"     # placeholder, to be confirmed by part 2
 
-# Window of past days fed to the RNN and LSTM (and to any lag-based features).
+# Lookback window: how many past days the RNN and LSTM see. A justified choice, see the brief (section 4).
 WINDOW = 20
 
 RANDOM_SEED = 42
