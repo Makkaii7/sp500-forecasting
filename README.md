@@ -3,8 +3,7 @@
 COSC 621 research report. Three models, three analysis parts, one shared repository, so that
 everything runs on the same data, the same split and the same scorecard.
 
-**New here? Read [docs/START_HERE.md](docs/START_HERE.md) first.** It is a 10-minute guide with
-numbered steps for Colab and for Cursor/VS Code, no git knowledge needed.
+**New here? Read [docs/START_HERE.md](docs/START_HERE.md).** Three steps, nothing to install or set up.
 
 ## The map
 
@@ -16,20 +15,20 @@ sp500-forecasting/
 ├── src/             config.py (the shared settings) and common.py (shared helper functions)
 ├── results/         every model saves its test predictions here; part 3 reads them
 ├── report/          the LaTeX report skeleton with the sections the professor asked for
-└── docs/            START_HERE, GLOSSARY, TROUBLESHOOTING
+└── docs/            START_HERE, CURSOR, GLOSSARY, TROUBLESHOOTING
 ```
 
 ## Who does what
 
-| Part | Owner | Notebook |
-|---|---|---|
-| 1. Data collection and preparation | | `notebooks/01_data_preparation.ipynb` |
-| 2. Time series analysis (training data only) | | `notebooks/02_time_series_analysis.ipynb` |
-| 3. Baseline and evaluation | | `notebooks/03_baseline_and_evaluation.ipynb` |
-| ARIMA | | `models/arima.ipynb` |
-| Vanilla RNN | | `models/rnn.ipynb` |
-| LSTM | | `models/lstm.ipynb` |
-| Report (LaTeX) | everyone, own sections | `report/main.tex` |
+| Part | Owner | Notebook | Open |
+|---|---|---|---|
+| 1. Data collection and preparation | | `notebooks/01_data_preparation.ipynb` | [Colab](https://colab.research.google.com/github/Makkaii7/sp500-forecasting/blob/main/notebooks/01_data_preparation.ipynb) |
+| 2. Time series analysis (training data only) | | `notebooks/02_time_series_analysis.ipynb` | [Colab](https://colab.research.google.com/github/Makkaii7/sp500-forecasting/blob/main/notebooks/02_time_series_analysis.ipynb) |
+| 3. Baseline and evaluation | | `notebooks/03_baseline_and_evaluation.ipynb` | [Colab](https://colab.research.google.com/github/Makkaii7/sp500-forecasting/blob/main/notebooks/03_baseline_and_evaluation.ipynb) |
+| ARIMA | | `models/arima.ipynb` | [Colab](https://colab.research.google.com/github/Makkaii7/sp500-forecasting/blob/main/models/arima.ipynb) |
+| Vanilla RNN | | `models/rnn.ipynb` | [Colab](https://colab.research.google.com/github/Makkaii7/sp500-forecasting/blob/main/models/rnn.ipynb) |
+| LSTM | | `models/lstm.ipynb` | [Colab](https://colab.research.google.com/github/Makkaii7/sp500-forecasting/blob/main/models/lstm.ipynb) |
+| Report (LaTeX) | everyone, own sections | `report/main.tex` | |
 
 Order of work: parts 1 and 2 first (part 2 confirms the split dates), then the three models, then part 3.
 
