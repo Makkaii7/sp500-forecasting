@@ -20,7 +20,7 @@ TARGET = "log_return"
 # Test: everything after VAL_END (the most recent 12 months of the data file).
 # The data file holds the full history (1927 onwards). TRAIN_START is the period decision the professor
 # asked us to justify; Part 2 sets it with evidence (notebook 02, section 0) and the group agrees here.
-TRAIN_START = "2010-01-01"   # placeholder until Part 2 decides
+TRAIN_START = "2010-01-01"   # decided by Part 2 on 3 Nov 2026, see notebooks/02 section 0 (volatility by decade, validation check, scaling)
 TRAIN_END = "2024-10-26"     # validation = the 12 months after this date
 VAL_END = "2025-10-26"       # test = everything after this date (12 months)
 
