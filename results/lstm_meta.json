@@ -1,0 +1,22 @@
+{
+  "model": "lstm",
+  "target": "log_return",
+  "window": 20,
+  "train_end": "2024-10-26",
+  "val_end": "2025-10-26",
+  "n_test": 251,
+  "train_seconds": 245.72310208499994,
+  "settings": {
+    "units": 32,
+    "window": 60,
+    "dropout": 0.1,
+    "learning_rate": 0.001,
+    "parameters": 4385,
+    "epochs run": 161,
+    "best epoch": 131,
+    "val MAE": 41.11477972715775,
+    "val RMSE": 63.15596199136764,
+    "RMSE vs baseline %": -5.419098833239644,
+    "train seconds": 245.72310208499994
+  }
+}
