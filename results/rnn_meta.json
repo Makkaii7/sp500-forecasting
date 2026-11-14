@@ -1,0 +1,20 @@
+{
+  "model": "rnn",
+  "target": "log_return",
+  "window": 20,
+  "train_end": "2024-10-26",
+  "val_end": "2025-10-26",
+  "n_test": 251,
+  "train_seconds": 92.964,
+  "settings": {
+    "units": 32,
+    "window": 40,
+    "epochs run": 83,
+    "best epoch": 53,
+    "val MSE (scaled returns)": 0.012,
+    "val MAE (index points)": 43.154,
+    "val RMSE (index points)": 66.614,
+    "train seconds": 92.964,
+    "selected": true
+  }
+}
