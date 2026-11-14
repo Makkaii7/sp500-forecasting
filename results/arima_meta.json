@@ -1,0 +1,33 @@
+{
+  "model": "arima",
+  "target": "log_return",
+  "window": null,
+  "train_end": "2024-10-26",
+  "val_end": "2025-10-26",
+  "n_test": 251,
+  "train_seconds": 17.127243118999786,
+  "settings": {
+    "order": [
+      1,
+      0,
+      1
+    ],
+    "p": 1,
+    "d": 0,
+    "q": 1,
+    "trend": "c",
+    "optimizer_converged": true,
+    "max_iterations": 1000,
+    "refit_on_validation": false,
+    "rolling_update": "append observed returns without parameter refitting",
+    "val MAE": 42.68053040860835,
+    "val RMSE": 66.09270867122748,
+    "RMSE vs baseline %": -1.021776606173752,
+    "train seconds": 17.127243118999786
+  },
+  "test MAE": 44.710946136991275,
+  "test RMSE": 57.36622703926201,
+  "baseline test MAE": 44.16217162599602,
+  "baseline test RMSE": 56.960222401162255,
+  "notes": "train_seconds is the recorded selected-candidate fitting time from validation tuning, not total notebook runtime or a separately measured final test fit. window is not applicable to ARIMA. train_end and val_end are exclusive split boundaries."
+}
